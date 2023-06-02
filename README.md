@@ -1,6 +1,6 @@
 # group-project-3
 
-Topic: Popular artists and songs in US
+1. Topic: Popular artists and songs in US
 * find top artists and songs by state, possibly top 3 of each
 * determine by US state 
 * provide link to artist website/song based on response
@@ -8,4 +8,4 @@ Topic: Popular artists and songs in US
 * have legend that allows user to switch between artist and song for search
 * use current data if possible
 * possible heatmap for genres? Will need to check available data
-Source: last fm or spotify for music data; leaflet for mapping on JavaScript, SQL to manipulate data/CSV information
+2. Source: last fm or spotify for music data; leaflet for mapping on JavaScript, SQL to manipulate data/CSV information
