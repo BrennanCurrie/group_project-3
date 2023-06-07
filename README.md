@@ -9,3 +9,5 @@
 * Use current data if possible
 * Possible heatmap for genres? Will need to check available data
 2. Source: last fm or spotify for music data; leaflet for mapping on JavaScript, SQL to manipulate data/CSV information
+
+* Sourse data for the map: https://leafletjs.com/examples/choropleth/
