@@ -8,4 +8,4 @@
 * Legend
 2. Source: spotify for music data; leaflet for mapping on JavaScript, SQL to manipulate data/CSV information
 
-* Sourse data for the map: https://leafletjs.com/examples/choropleth/
+* Source data for the map: https://leafletjs.com/examples/choropleth/
