@@ -1,3 +1,4 @@
+// display map
 var map = L.map('map').setView([37.8, -96], 4);
 
 var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -7,6 +8,7 @@ var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.geoJson(statesData).addTo(map);
 
+// assign colors to the map
 function getColor(d) {
     return d > 1000 ? '#800026' :
            d > 500  ? '#BD0026' :
@@ -18,6 +20,7 @@ function getColor(d) {
                       '#FFEDA0';
 }
 
+// stylize the appearance
 function style(feature) {
     return {
         fillColor: getColor(feature.properties.density),
@@ -31,6 +34,7 @@ function style(feature) {
 
 L.geoJson(statesData, {style: style}).addTo(map);
 
+//mouse over action
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -44,18 +48,22 @@ function highlightFeature(e) {
     layer.bringToFront();
 }
 
+//mouse out
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
 }
 
+//reset to standard
 var geojson;
 // ... our listeners
 geojson = L.geoJson(...);
 
+//click to zoom into the state
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
 
+//highlight out state
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
@@ -69,6 +77,7 @@ geojson = L.geoJson(statesData, {
     onEachFeature: onEachFeature
 }).addTo(map);
 
+//more custom pop up coding
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -77,7 +86,7 @@ info.onAdd = function (map) {
     return this._div;
 };
 
-// method that we will use to update the control based on feature properties passed
+   // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
         '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
@@ -86,6 +95,7 @@ info.update = function (props) {
 
 info.addTo(map);
 
+//hover action over states
 function highlightFeature(e) {
     ...
     info.update(layer.feature.properties);
@@ -96,6 +106,7 @@ function resetHighlight(e) {
     info.update();
 }
 
+//build the legend
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
