@@ -9,7 +9,7 @@ def index():
 if __name__ == '__main__':
     app.run()
  -->
- 
+
 <!-- 
 In this example, the route / is defined, and when a request is made to that route,
 Flask renders the index.html file and returns it as the response.
@@ -26,6 +26,9 @@ and you should see your HTML page rendered by the Flask app.
     <meta name ='viewport' content=" width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA_Compatible" content=" ie=edge">
 
+    <!-- d3 library-->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -38,6 +41,10 @@ and you should see your HTML page rendered by the Flask app.
 
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- leaflet-choropleth JavaScript -->
+    <script type="text/javascript" src= "choropleth.js"></script>
+
 
 </head>
 <body>
