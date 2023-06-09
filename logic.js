@@ -1,3 +1,4 @@
+
 // takes spotify_data.JSON and displays each of  the states top three songs and playlists in an overlay 
 // on a map of the United States 
 
@@ -15,47 +16,40 @@ L.geoJson(geojson).addTo(map);
 // function states(data){
 
 //}
+
+// read in the data for the state boarders. 
 var geojson;
-// data for the polygon coordinates of each state
-fetch('coordinates-1.json')
-  .then(response => response.json())
-  .then(data => {
-    // Access the GeoJSON features
-    console.log(data);
-  })
-//   .catch(error => {
-//     console.error(error);
-//   });
-// var state_coordinate_url= "coordinates-1.json";
-// console.log(state_coordinate_url);
-// d3.json(state_coordinate_url).then(function(data){
-//     console.log(data)
-// })
-// get just the coordinates using a d3 request 
-// d3.json(state_coordinate_url).then(function(data) {
-//    // Create a new choropleth layer.
-//     geojson = L.choropleth(data.features.geometry.coordinates, {
 
-//     // Define which property in the features to use.
-//     valueProperty: "DP03_16E",
+d3.json("data.json", function(error, data) {
+    if (error) {
+      console.error(error);
+    } else {
+      // Handle the data
+      geojson= data;
+      console.log(geojson.features[0].geometry.coordinates);
 
-//     // Set the color scale.
-//     scale: ["#ffffb2", "#b10026"],
+      L.choropleth(geojson.features[0].geometry.coordinates, {
 
-//     // The number of breaks in the step range
-//     steps: 10,
+        // Define which property in the features to use.
+        valueProperty: "DP03_16E",
+    
+        // Set the color scale.
+        scale: ["#ffffb2", "#b10026"],
+    
+        // The number of breaks in the step range
+        steps: 10,
+    
+        // q for quartile, e for equidistant, k for k-means
+        mode: "q",
+        style: {
+          // Border color
+          color: "#fff",
+          weight: 1,
+          fillOpacity: 0.8
 
-//     // q for quartile, e for equidistant, k for k-means
-//     mode: "q",
-//     style: {
-//       // Border color
-//       color: "#fff",
-//       weight: 1,
-//       fillOpacity: 0.8
-//     }}); 
-
-// }); 
-
+    }}).addTo(map);
+}});
+  
 
 // spotify_json_url= ''
 
