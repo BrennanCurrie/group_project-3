@@ -72,7 +72,7 @@ function onEachFeature(feature, layer) {
 
 // create function geoFormat to take the states names to be able to compare to the states names
 // from the other json file (data.json)
-// function geoFormat(data){
+// function geoFormat(data,states){
 //     for (var i=0; i< data.length; i++){
 //         console.log(data)}
 //         // check to make sure the states names match 
