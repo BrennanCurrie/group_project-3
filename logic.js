@@ -55,12 +55,26 @@ function resetHighlight(e) {
     info.update();
 
 }
-// function to zoom in on state when clicked 
+
+var previousZoom = null; // Variable to store the previous zoom level
+// Function to zoom in on state when clicked
 function zoomToFeature(e) {
     var layer = e.target;
-    map.fitBounds(e.target.getBounds());
-    deets.addTo(map);
-    deets.update(layer.feature.properties);
+    // Check if zooming in or zooming out
+    if (map.getZoom() !== previousZoom) {
+        // Zoom in
+        // Store the current zoom level
+        map.fitBounds(e.target.getBounds());
+        deets.addTo(map);
+        deets.update(layer.feature.properties);
+        previousZoom = map.getZoom(); 
+    } else {
+        // Zoom out
+        map.setZoom(previousZoom);
+        map.setView(layer.getBounds().getCenter(), previousZoom - 2); // Zoom out to the previous zoom level
+        deets.remove(); // Remove any details or pop-ups if necessary
+        previousZoom = null; // Reset the previous zoom level
+    }
 }
 // Function to call each style function when the layer is used. 
 function onEachFeature(feature, layer) {
@@ -128,15 +142,12 @@ var deets = L.control({position: 'bottomleft'});;
 
 deets.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'deets'); // create a div with a class "info"
-    //this.update();
+
     return this._div;
 };
 
 deets.update = function (state) {
-    //d3.json("spotify_data.json", function(error, spotifyData) {
-        //if (error) {
-            //console.error(error);
-        //} else {
+
     contents="No Top Song Information Available"
     SD.forEach(function(row) {
         if (row.State === state.name) {
@@ -152,10 +163,10 @@ deets.update = function (state) {
 
 
 
-// add legend to show what the scale is for depth of the earthquake. 
-// var legend2 = L.control({position: "bottomleft"});
-// legend2.onAdd= function(){
-//     var div = L.DomUtil.create("div", "legend");
-//     return div;
-// }
-// legend2.addTo(map);
+
+var legend = L.control({position: "bottomright"});
+legend.onAdd= function(){
+    var div = L.DomUtil.create("div", "legend");
+     return div;
+}
+legend.addTo(map);
