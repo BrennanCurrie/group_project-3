@@ -13,14 +13,11 @@ var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Create a function to add color to the map
 // Sourced from https://leafletjs.com/examples/choropleth/
 function getColor(d) {
-    return d > 1000 ? '#fff7fb' :
-           d > 500  ? '#ece2f0' :
-           d > 200  ? '#d0d1e6' :
-           d > 100  ? '#a6bddb' :
-           d > 50   ? '#67a9cf' :
-           d > 20   ? '#3690c0' :
-           d > 10   ? '#02818a' :
-                      '#016450';
+    return d >= 90 ? '#717D8C' :
+           d >= 80 ? '#41AAC4' :
+           d >= 70 ? '#80CEB9' :
+           d >= 60 ? '#BDCA9C' :
+                    '#BBBBBB';
 }
 
 // Add style to the map and call color function
@@ -61,17 +58,19 @@ var previousZoom = null; // Variable to store the previous zoom level
 function zoomToFeature(e) {
     var layer = e.target;
     // Check if zooming in or zooming out
-    if (map.getZoom() !== previousZoom) {
+    if (previousZoom === null) {
         // Zoom in
         // Store the current zoom level
+        previousZoom = map.getZoom(); 
         map.fitBounds(e.target.getBounds());
         deets.addTo(map);
         deets.update(layer.feature.properties);
-        previousZoom = map.getZoom(); 
+        
     } else {
         // Zoom out
         map.setZoom(previousZoom);
-        map.setView(layer.getBounds().getCenter(), previousZoom - 2); // Zoom out to the previous zoom level
+        map.setView([37.8, -96], 4)
+        //map.setView(layer.getBounds().getCenter(), previousZoom); // Zoom out to the previous zoom level
         deets.remove(); // Remove any details or pop-ups if necessary
         previousZoom = null; // Reset the previous zoom level
     }
@@ -87,7 +86,7 @@ function onEachFeature(feature, layer) {
 
 // Create a geoJSON layer to call the style and color function. 
 var geojson;
-d3.json("data.json", function(error, data) {
+d3.json("newdata.json", function(error, data) {
     if (error) {
         console.error(error);
     } else {
@@ -167,6 +166,13 @@ deets.update = function (state) {
 var legend = L.control({position: "bottomright"});
 legend.onAdd= function(){
     var div = L.DomUtil.create("div", "legend");
+    var limits = [100,90,80,70,60]
+    div.innerHTML = '<i><center><Font color=black>Avg. Popularity of<br />Top 3 Songs</font><br /><HR></center>'
+    for (var i = 0; i < limits.length; i++) {
+        div.innerHTML +=
+            '<i style="background-color:' + getColor(limits[i+1]) + '">&nbsp&nbsp&nbsp&nbsp</i> ' +
+            (limits[i + 1] ? limits[i+1] : 'no data') + (limits[i]>60 ? '&ndash;' + limits[i] + '<br>' : '');
+    }
      return div;
 }
 legend.addTo(map);
