@@ -13,10 +13,14 @@ var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Create a function to add color to the map
 // Sourced from https://leafletjs.com/examples/choropleth/
 function getColor(d) {
-    return d >= 90 ? '#717D8C' :
-           d >= 80 ? '#41AAC4' :
-           d >= 70 ? '#80CEB9' :
-           d >= 60 ? '#BDCA9C' :
+    return d >= 95 ? '#B6C8ED' :
+           d >= 90 ? '#EDB4D3' :
+           d >= 85 ? '#EDB4BF' :
+           d >= 80 ? '#ECD9B4' :
+           d >= 75 ? '#EDEDB4' :
+           d >= 70 ? '#CFEDB4' :
+           d >= 65 ? '#BCEDB4' :
+           d >= 60 ? '#DAEDB6' :
                     '#BBBBBB';
 }
 
@@ -166,7 +170,7 @@ deets.update = function (state) {
 var legend = L.control({position: "bottomright"});
 legend.onAdd= function(){
     var div = L.DomUtil.create("div", "legend");
-    var limits = [100,90,80,70,60]
+    var limits = [100,95, 90, 85, 80, 75, 70, 65, 60]
     div.innerHTML = '<i><center><Font color=black>Avg. Popularity of<br />Top 3 Songs</font><br /><HR></center>'
     for (var i = 0; i < limits.length; i++) {
         div.innerHTML +=
