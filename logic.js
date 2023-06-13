@@ -137,6 +137,7 @@ deets.update = function (state) {
         //if (error) {
             //console.error(error);
         //} else {
+    contents="No Top Song Information Available"
     SD.forEach(function(row) {
         if (row.State === state.name) {
             contents = (row.Track_Artist_Popularity).replace('\n','<br />')
