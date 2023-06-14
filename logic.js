@@ -90,7 +90,7 @@ function onEachFeature(feature, layer) {
 
 // Create a geoJSON layer to call the style and color function. 
 var geojson;
-d3.json("newdata.json", function(error, data) {
+d3.json("Resources/newdata.json", function(error, data) {
     if (error) {
         console.error(error);
     } else {
@@ -113,7 +113,7 @@ function topSongs(spotifyData){
 
 // Load in the spotify json. 
 // when pushed to main, fix file path 
-d3.json("spotify_data.json", function(error, spotifyData) {
+d3.json("Resources/spotify_data.json", function(error, spotifyData) {
     if (error) {
         console.error(error);
     } else {
